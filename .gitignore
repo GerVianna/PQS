@@ -1,0 +1,6 @@
+.DS_Store
+package-lock.json
+.idea
+node_modules
+./backend/package-lock.json
+./frontend/package-lock.json
