@@ -1,21 +1,23 @@
-const http = require('http');
 
-// Require the framework and instantiate it
-const fastify = require('fastify')({ logger: true })
+// Instancio fastify
 
-// Declare a route
-fastify.get('/', async (request, reply) => {
-  return { hello: 'world' }
-})
+const PORT = 3000;
 
-// Run the server!
-const start = async () => {
-  try {
-    await fastify.listen(3000)
-    fastify.log.info(`server listening on ${fastify.server.address().port}`)
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
+const Fastify = require('fastify')
+
+async function build () {
+  const fastify = Fastify()
+  await fastify.register(require('middie'))
+  // do you know we also have cors support?
+  // https://github.com/fastify/fastify-cors
+  fastify.use(require('cors')())
+  fastify.register(require('./api'));
+  return fastify
 }
-start()
+
+build()
+    .then(fastify =>{
+      console.log('Servidor corriendo en el puerto 3000');
+      fastify.listen(PORT)
+    })
+    .catch(console.log)
