@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {OrderItem} from "../../../../api/models/orderItem";
-import {OrderService} from "../../../../api/services/order.service";
-import {OrderInfo} from "../../../../api/models/orderInfo";
+import {ActivatedRoute} from '@angular/router';
+import {OrderItem} from '../../../../api/models/orderItem';
+import {OrderService} from '../../../../api/services/order.service';
+import {OrderInfo} from '../../../../api/models/orderInfo';
 
 @Component({
   selector: 'app-order-detail',
@@ -11,13 +11,13 @@ import {OrderInfo} from "../../../../api/models/orderInfo";
 })
 export class OrderDetailComponent implements OnInit {
 
-  orderItems: Array<OrderItem>;
-  orderInfo: OrderInfo;
+  orderItems: Array<OrderItem>; // Array con items de la orden
+  orderInfo: OrderInfo; // Orden actual
   constructor(private activatedRouteService: ActivatedRoute,
               private orderService: OrderService) {
-    this.orderService.currentOrder.subscribe(order => this.orderInfo = order);
-    this.activatedRouteService.params.subscribe( params => {
-      this.orderService.getOrder(params.id)
+    this.orderService.currentOrder.subscribe(order => this.orderInfo = order); // obtengo orden
+    this.activatedRouteService.params.subscribe( params => { // me subscribo para obtener parametro de id de la url
+      this.orderService.getOrder(params.id) // obtengo items de la orden
         .then((result) => {
           this.orderItems = result;
         });
@@ -27,13 +27,14 @@ export class OrderDetailComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // aprobar una orden
   approve(orderId: number): void {
     this.orderService.approveOrder(orderId)
       .then((result) => {
         this.orderInfo.status = 1;
       });
   }
-
+  // rechazar una orden
   reject(orderId: number): void {
     this.orderService.rejectOrder(orderId)
       .then((result) => {

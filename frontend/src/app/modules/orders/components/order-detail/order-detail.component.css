@@ -1,9 +1,9 @@
-.header-order-details {
-  justify-content: space-between;
+.header-orders-details {
+  justify-content: space-between!important;
 }
 
 .table-detail {
-  height: 220px;
+ max-height: 190px;
 }
 
 .order-status {
@@ -44,7 +44,6 @@
 
 .total-order {
   color: #066aea;
-  background-color: #e6f0fc;
   font-size: 15px;
   margin-right: 5px;
   border-radius: 6px;
@@ -54,5 +53,18 @@
   display: flex;
   justify-content: flex-end;
   align-items: center;
+  background-color: #e6f0fc;
+}
 
+.order-description {
+  background-color: #e6f0fc;
+  text-transform: uppercase;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  height: 22px;
+}
+
+.ant-table-wrapper {
+  max-height: 180px!important;
 }
