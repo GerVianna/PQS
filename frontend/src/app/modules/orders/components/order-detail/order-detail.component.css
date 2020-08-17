@@ -1,0 +1,58 @@
+.header-order-details {
+  justify-content: space-between;
+}
+
+.table-detail {
+  height: 220px;
+}
+
+.order-status {
+  font-size: 14px;
+  line-height: 22px;
+  padding: 0 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.pending {
+  color: #066aea;
+  background-color: #e6f0fc;
+}
+
+.approved {
+  background-color: #E6F7EE!important;
+  color: #00A750!important;
+}
+
+.rejected {
+  background-color: #fee9ef!important;
+  color: #fb2467!important;
+}
+
+.approve-order {
+  background: #00A750!important;
+  margin-right: 3px!important;
+  color: #fff;
+}
+
+.reject-order {
+  background: #fb2467!important;
+  margin-right: 3px!important;
+  color: #fff;
+}
+
+.total-order {
+  color: #066aea;
+  background-color: #e6f0fc;
+  font-size: 15px;
+  margin-right: 5px;
+  border-radius: 6px;
+}
+
+.div-total {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+
+}

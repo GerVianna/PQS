@@ -15,6 +15,30 @@ h3 {
   margin-top: 8px!important;
 }
 
+.div-app {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  width: 500px;
+  height: 300px;
+  border: 1px solid #e3eaf0;
+  border-radius: 5px;
+}
+
+.content-app {
+  display: flex;
+  height: 240px;
+  justify-content: center;
+}
+
+.header-app {
+  display: flex;
+  border-bottom: 1px solid #e3eaf0;
+}
+
 .table-border {
   border: 1px solid #e3eaf0;
   display: flex;
@@ -104,7 +128,13 @@ th.ant-table-cell {
   padding: 10px 20px;
 }
 
+.ant-btn-group {
+ margin: 5px 5px 5px auto
+}
+
 nz-select {
   width: 150px;
   margin-right: 5px!important;
 }
+
+
