@@ -10,7 +10,9 @@
   <div class="content-app">
     <nz-table #basicTable
               [nzData]="ordersInfo"
-              nzPageSize="3">
+              [nzNoResult]="'No hay ordenes en el estado seleccionado'"
+              nzSize="small"
+              nzPageSize="4">
       <thead>
       <tr>
         <th>Orden</th>
@@ -21,7 +23,11 @@
       </thead>
       <tbody>
       <tr *ngFor="let data of basicTable.data">
-        <td [routerLink]="['/orders', data['orderId']]" (click)="sendOrderInfo(data)">N° {{ data['orderId'] }}</td>
+        <td>
+          <span >
+            <a (click)="sendOrderInfo(data)" [routerLink]="['/orders', data['orderId']]">N° {{ data['orderId'] }}</a>
+          </span>
+        </td>
         <td>{{ data['orderDescription']}}</td>
         <td>{{ data['qItems']}}</td>
         <td>{{ data['total']}}</td>

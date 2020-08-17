@@ -1,28 +1,31 @@
-import {EventEmitter, Injectable, Output} from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
 import {OrderInfo} from '../models/orderInfo';
-import {OrderItem} from "../models/orderItem";
-import {BehaviorSubject} from "rxjs";
+import {OrderItem} from '../models/orderItem';
+import {BehaviorSubject} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
 
+  // Configuro BehaviorSubject para enviar orden correspondiente
   private sendOrder = new BehaviorSubject(new OrderInfo());
   currentOrder = this.sendOrder.asObservable();
+  // Creo objeto hhtpOptions para las request
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'cache-control': 'no-cache',
+    })
+  };
   constructor(private http: HttpClient) { }
 
+  // Funciones del servicio para obtener ordenes, aceptarlas y rechazarlas
   async getPendingOrders(): Promise<Array<OrderInfo>> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'cache-control': 'no-cache',
-      })
-    };
     let res: Array<OrderInfo> = null;
-    await this.http.get(environment.backendUrl + '/api/orders/pending', httpOptions)
+    await this.http.get(environment.backendUrl + '/api/orders/pending', this.httpOptions)
       .toPromise()
       .then((result: any) => {
         res = result;
@@ -31,14 +34,8 @@ export class OrderService {
   }
 
   async getApprovedOrders(): Promise<Array<OrderInfo>> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'cache-control': 'no-cache',
-      })
-    };
     let res: Array<OrderInfo> = null;
-    await this.http.get(environment.backendUrl + '/api/orders/approved', httpOptions)
+    await this.http.get(environment.backendUrl + '/api/orders/approved', this.httpOptions)
       .toPromise()
       .then((result: any) => {
         res = result;
@@ -47,14 +44,8 @@ export class OrderService {
   }
 
   async getRejectedOrders(): Promise<Array<OrderInfo>> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'cache-control': 'no-cache',
-      })
-    };
     let res: Array<OrderInfo> = null;
-    await this.http.get(environment.backendUrl + '/api/orders/rejected', httpOptions)
+    await this.http.get(environment.backendUrl + '/api/orders/rejected', this.httpOptions)
       .toPromise()
       .then((result: any) => {
         res = result;
@@ -63,14 +54,8 @@ export class OrderService {
   }
 
   async getOrder(orderId: number): Promise<Array<OrderItem>> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'cache-control': 'no-cache',
-      })
-    };
     let res: Array<OrderItem> = null;
-    await this.http.get(environment.backendUrl + '/api/orders/' + orderId, httpOptions)
+    await this.http.get(environment.backendUrl + '/api/orders/' + orderId, this.httpOptions)
       .toPromise()
       .then((result: any) => {
         res = result;
@@ -79,14 +64,8 @@ export class OrderService {
   }
 
   async approveOrder(orderId: number): Promise<Object> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'cache-control': 'no-cache',
-      })
-    };
     let res: Object = null;
-    await this.http.post(environment.backendUrl + '/api/orders', {id: orderId} , httpOptions)
+    await this.http.post(environment.backendUrl + '/api/orders', {id: orderId} , this.httpOptions)
       .toPromise()
       .then((result: Object) => {
         res = result;
@@ -95,14 +74,8 @@ export class OrderService {
   }
 
   async rejectOrder(orderId: number): Promise<Object> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'cache-control': 'no-cache',
-      })
-    };
     let res: Object = null;
-    await this.http.delete(environment.backendUrl + '/api/orders/' + orderId, httpOptions)
+    await this.http.delete(environment.backendUrl + '/api/orders/' + orderId, this.httpOptions)
       .toPromise()
       .then((result: Object) => {
         res = result;
@@ -110,6 +83,7 @@ export class OrderService {
     return res;
   }
 
+  // Funcion para actualizar la orden en el componente order-detail
   sendOrderInfo(orderInfo: OrderInfo): void {
     this.sendOrder.next(orderInfo);
   }

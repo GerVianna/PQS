@@ -9,10 +9,16 @@
       <button  nz-button class="btn reject-order" (click)="reject(orderInfo.orderId)">Rechazar</button>
     </nz-button-group>
   </div>
+  <div class="order-description">
+    <h4>{{orderInfo.orderDescription}}</h4>
+  </div>
   <div class="content-app table-detail">
+
     <nz-table #basicTable
               [nzData]="orderItems"
-              nzPageSize="2">
+              nzSize="small"
+              nzPaginationPosition="bottom"
+              nzPageSize="3">
       <thead>
       <tr>
         <th>Descripcion</th>

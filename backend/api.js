@@ -1,7 +1,8 @@
-// Configuro cliente para postgresql
+// Import de las dos clases necesarias
 const OrderInfo = require('./orderInfo');
 const OrderItem = require('./orderItem');
 
+// Configuro cliente para postgresql
 const {Client} = require('pg');
 
 const client = new Client({
@@ -28,6 +29,7 @@ async function routes (fastify, options) {
                 }
                 if (results.rows) {
                     results.rows.forEach(row => {
+                        // Instancio objeto
                         const newOrder = new OrderInfo();
                         newOrder.orderId = row['OrderId'];
                         newOrder.status = 0;

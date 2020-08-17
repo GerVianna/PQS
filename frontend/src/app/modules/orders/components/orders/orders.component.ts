@@ -17,6 +17,7 @@ export class OrdersComponent implements OnInit {
   ngOnInit(): void {
     this.status = '0';
     this.loading = true;
+    // Obtengo ordenes pendientes
     this.orderService.getPendingOrders()
       .then((result) => {
           this.ordersInfo = result;
@@ -24,6 +25,7 @@ export class OrdersComponent implements OnInit {
       });
   }
 
+  // Mediante los cambios en el select, actualizo la tabla de ordenes
   updateOrders($event: string): void {
     this.loading = true;
     switch ($event) {
@@ -50,6 +52,7 @@ export class OrdersComponent implements OnInit {
     }
   }
 
+  // Al hacer click sobre el id de orden, envio la informacion obtenida de esa orden.
   sendOrderInfo(order: OrderInfo): void {
     this.orderService.sendOrderInfo(order);
   }

@@ -23,7 +23,8 @@ h3 {
   transform: translate(-50%, -50%);
   background-color: #ffffff;
   width: 500px;
-  height: 300px;
+  min-height: 270px;
+  max-height: 300px;
   border: 1px solid #e3eaf0;
   border-radius: 5px;
 }
@@ -107,7 +108,12 @@ tbody.ant-table-tbody > * {
 }
 
 td.ant-table-cell, th.ant-table-cell {
-  padding: 12px!important;
+  padding: 7px!important;
+}
+
+.ant-table-pagination {
+  margin-bottom: 8px!important;
+  margin-top: 8px!important;
 }
 
 th.ant-table-cell {
