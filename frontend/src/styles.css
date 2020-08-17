@@ -1,1 +1,110 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #A8CCE8;
+  font-family: 'Lato', sans-serif;
+}
+
+h3 {
+  margin-left: 20px!important;
+  margin-bottom: 8px!important;
+  margin-top: 8px!important;
+}
+
+.table-border {
+  border: 1px solid #e3eaf0;
+  display: flex;
+  justify-content: space-between;
+}
+
+table {
+  width: 100%;
+  border: 1px solid #EBF0F4;
+  background: #fff!important;
+}
+
+tr.table_border.ant-table-row {
+  background-color: #fff;
+  border-radius: 6px;
+  transition: background-color 0.4s;
+}
+
+.ant-table-empty .ant-table-body {
+  overflow: inherit!important;
+}
+
+table thead th {
+  font-weight: 600;
+  text-transform: capitalize;
+  color: #95aac9;
+  border-bottom-width: 1px;
+}
+
+.table td, .table th {
+  padding: .9375rem;
+  vertical-align: middle;
+  border-top: 1px solid #edf2f9;
+}
+
+
+.table {
+  width: 100%;
+  margin-bottom: 1.5rem;
+  background-color: transparent;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 1px solid #edf2f9;
+}
+
+.table {
+  vertical-align: middle;
+}
+
+.ant-table-tbody>tr.ant-table-row-hover:not(.ant-table-expanded-row)>td, .ant-table-tbody>tr:hover:not(.ant-table-expanded-row)>td, .ant-table-thead>tr.ant-table-row-hover:not(.ant-table-expanded-row)>td, .ant-table-thead>tr:hover:not(.ant-table-expanded-row)>td {
+  background: #fbfbfb;
+}
+
+tbody.ant-table-tbody > * {
+  display: table-row;
+}
+
+.ant-table-wrapper {
+  width: 100% !important;
+}
+
+td.ant-table-cell, th.ant-table-cell {
+  padding: 12px!important;
+}
+
+th.ant-table-cell {
+  border-bottom: 1px solid #1890ff !important;
+  background-color: #ffffff!important;
+  border-top: 1px solid #1890ff !important;
+}
+
+.ant-btn-primary {
+  font-size: 15px!important;
+  font-family: 'Lato', sans-serif;
+  width: 250px;
+  color: #fff;
+  background: linear-gradient(121deg,#0c57fb 0,#2467fb 100%);
+  line-height: 24px;
+  border-radius: 6px!important;
+  box-shadow: 0 1px 7px 1px #2467fb4f;
+  padding: 10px 20px;
+}
+
+nz-select {
+  width: 150px;
+  margin-right: 5px!important;
+}

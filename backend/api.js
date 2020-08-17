@@ -1,4 +1,5 @@
 // Configuro cliente para postgresql
+const OrderInfo = require('./orderInfo');
 const {Client} = require('pg');
 
 const client = new Client({
@@ -17,33 +18,68 @@ client
 // Definicion de endpoints
 async function routes (fastify, options) {
     fastify.get('/api/orders/pending', async (req, res) => {
+        let orders = [];
         client.query(
-            `SELECT * FROM "Orders" 
-                    WHERE "Status" = 0`, [], (error,results) => {
+            `SELECT * FROM vOrders_info_pending`, [], (error,results) => {
                 if (error) {
                     throw error;
                 }
-                res.status(200).send(results.rows);
+                if (results.rows) {
+                    results.rows.forEach(row => {
+                        const newOrder = new OrderInfo();
+                        newOrder.orderId = row['OrderId'];
+                        newOrder.orderDescription = row['OrderDescription'];
+                        newOrder.createdOn = row['CreatedOn'];
+                        newOrder.total = row['TotalItemPrice'];
+                        newOrder.qItems = row['TotalItems'];
+                        orders.push(newOrder);
+                    })
+                }
+                res.status(200).send(orders);
             }
         )
     })
     fastify.get('/api/orders/approved', async (req, res) => {
+        let orders = [];
         client.query(
-            `SELECT * FROM "Orders"  WHERE "Status" = 1`, [], (error,results) => {
+            `SELECT * FROM vOrders_info_approved`, [], (error,results) => {
                 if (error) {
                     throw error;
                 }
-                res.status(200).send(results.rows);
+                if (results.rows) {
+                    results.rows.forEach(row => {
+                        const newOrder = new OrderInfo();
+                        newOrder.orderId = row['OrderId'];
+                        newOrder.orderDescription = row['OrderDescription'];
+                        newOrder.createdOn = row['CreatedOn'];
+                        newOrder.total = row['TotalItemPrice'];
+                        newOrder.qItems = row['TotalItems'];
+                        orders.push(newOrder);
+                    })
+                }
+                res.status(200).send(orders);
             }
         )
     })
     fastify.get('/api/orders/rejected', async (req, res) => {
+        let orders = [];
         client.query(
-            `SELECT * FROM "Orders"  WHERE "Status" = -1`, [], (error,results) => {
+            `SELECT * FROM vOrders_info_rejected`, [], (error,results) => {
                 if (error) {
                     throw error;
                 }
-                res.status(200).send(results.rows);
+                if (results.rows) {
+                    results.rows.forEach(row => {
+                        const newOrder = new OrderInfo();
+                        newOrder.orderId = row['OrderId'];
+                        newOrder.orderDescription = row['OrderDescription'];
+                        newOrder.createdOn = row['CreatedOn'];
+                        newOrder.total = row['TotalItemPrice'];
+                        newOrder.qItems = row['TotalItems'];
+                        orders.push(newOrder);
+                    })
+                }
+                res.status(200).send(orders);
             }
         )
     })

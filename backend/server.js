@@ -1,23 +1,23 @@
 
 // Instancio fastify
-const fastify = require('fastify')({
-  logger: true,
-  ignoreTrailingSlash: true
-});
 
 const PORT = 3000;
-// Registro archivo con endpoints
 
-fastify.register(require('./api'));
+const Fastify = require('fastify')
 
-// Levanto el server
-const start = async () => {
-  try {
-    await fastify.listen(PORT)
-    fastify.log.info(`server listening on ${fastify.server.address().port}`)
-  } catch (err) {
-    fastify.log.error(err)
-    process.exit(1)
-  }
+async function build () {
+  const fastify = Fastify()
+  await fastify.register(require('middie'))
+  // do you know we also have cors support?
+  // https://github.com/fastify/fastify-cors
+  fastify.use(require('cors')())
+  fastify.register(require('./api'));
+  return fastify
 }
-start();
+
+build()
+    .then(fastify =>{
+      console.log('Servidor corriendo en el puerto 3000');
+      fastify.listen(PORT)
+    })
+    .catch(console.log)

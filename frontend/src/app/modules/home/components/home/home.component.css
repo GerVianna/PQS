@@ -1,0 +1,24 @@
+.div-home {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  width: 500px;
+  height: 300px;
+  border: 1px solid #e3eaf0;
+  border-radius: 5px;
+}
+
+.header-home {
+  border-bottom: 1px solid #e3eaf0;
+  display: flex;
+}
+
+.content-home {
+  display: flex;
+  height: 240px;
+  justify-content: center;
+  align-items: center;
+}

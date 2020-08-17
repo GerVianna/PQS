@@ -22,3 +22,27 @@ CREATE TABLE "OrderItems" (
   "Quantity"       INTEGER NOT NULL,
   "UnitPrice"        NUMERIC (32,2)
 );
+
+CREATE VIEW vOrders_info_pending as
+SELECT t1."OrderId", t1."Status", t1."OrderDescription", t1."CreatedOn", t1."AuthDate",
+	SUM (t2."Quantity") as "TotalItems", SUM (t2."UnitPrice") as "TotalItemPrice"
+	FROM public."Orders" as t1
+	LEFT JOIN public."OrderItems" as t2 on t2."OrderId" = t1."OrderId"
+	WHERE t1."Status"='0'
+	GROUP BY t1."OrderId"
+
+CREATE VIEW vOrders_info_approved as
+SELECT t1."OrderId", t1."Status", t1."OrderDescription", t1."CreatedOn", t1."AuthDate",
+	SUM (t2."Quantity") as "TotalItems", SUM (t2."UnitPrice") as "TotalItemPrice"
+	FROM public."Orders" as t1
+	LEFT JOIN public."OrderItems" as t2 on t2."OrderId" = t1."OrderId"
+	WHERE t1."Status"='1'
+	GROUP BY t1."OrderId"
+
+CREATE VIEW vOrders_info_rejected as
+SELECT t1."OrderId", t1."Status", t1."OrderDescription", t1."CreatedOn", t1."AuthDate",
+	SUM (t2."Quantity") as "TotalItems", SUM (t2."UnitPrice") as "TotalItemPrice"
+	FROM public."Orders" as t1
+	LEFT JOIN public."OrderItems" as t2 on t2."OrderId" = t1."OrderId"
+	WHERE t1."Status"='-1'
+	GROUP BY t1."OrderId"
