@@ -1,5 +1,5 @@
-<div class="container-fluid div-orders">
-  <div class="header-orders">
+<div class="container-fluid div-app">
+  <div class="header-app header-orders">
     <h3>Ordenes</h3>
     <nz-select nzSize="small" [(ngModel)]="status" (ngModelChange)="updateOrders($event)">
       <nz-option nzValue=0 nzLabel="Pendientes"></nz-option>
@@ -7,24 +7,26 @@
       <nz-option nzValue=-1 nzLabel="Rechazadas"></nz-option>
     </nz-select>
   </div>
-  <nz-table #basicTable
-            [nzData]="ordersInfo"
-            nzPageSize="3">
-    <thead>
-    <tr>
-      <th>Orden</th>
-      <th>Descripción</th>
-      <th>Qitems</th>
-      <th>Total</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let data of basicTable.data">
-      <td>N° {{ data['orderId'] }}</td>
-      <td>{{ data['orderDescription']}}</td>
-      <td>{{ data['qItems']}}</td>
-      <td>{{ data['total']}}</td>
-    </tr>
-    </tbody>
-  </nz-table>
+  <div class="content-app">
+    <nz-table #basicTable
+              [nzData]="ordersInfo"
+              nzPageSize="3">
+      <thead>
+      <tr>
+        <th>Orden</th>
+        <th>Descripción</th>
+        <th>Qitems</th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td [routerLink]="['/orders', data['orderId']]" (click)="sendOrderInfo(data)">N° {{ data['orderId'] }}</td>
+        <td>{{ data['orderDescription']}}</td>
+        <td>{{ data['qItems']}}</td>
+        <td>{{ data['total']}}</td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>

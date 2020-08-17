@@ -49,4 +49,9 @@ export class OrdersComponent implements OnInit {
           });
     }
   }
+
+  sendOrderInfo(order: OrderInfo): void {
+    this.orderService.sendOrderInfo(order);
+  }
+
 }

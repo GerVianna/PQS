@@ -1,1 +1,37 @@
-<p>order-detail works!</p>
+<div class="container-fluid div-app">
+  <div class="header-app header-orders-details">
+    <h3>Detalle orden</h3>
+    <span *ngIf="orderInfo.status == 0" class="order-status pending">Pendiente</span>
+    <span *ngIf="orderInfo.status == 1" class="order-status approved">Aprobada</span>
+    <span *ngIf="orderInfo.status == -1" class="order-status rejected">Rechazada</span>
+    <nz-button-group *ngIf="orderInfo.status == 0">
+      <button  nz-button class="btn approve-order"  (click)="approve(orderInfo.orderId)">Aprobar</button>
+      <button  nz-button class="btn reject-order" (click)="reject(orderInfo.orderId)">Rechazar</button>
+    </nz-button-group>
+  </div>
+  <div class="content-app table-detail">
+    <nz-table #basicTable
+              [nzData]="orderItems"
+              nzPageSize="2">
+      <thead>
+      <tr>
+        <th>Descripcion</th>
+        <th>Unidades</th>
+        <th>Precio unitario</th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data['description'] }}</td>
+        <td>{{ data['quantity']}}</td>
+        <td>{{ data['unitPrice']}}</td>
+        <td>{{ data['quantity'] * data['unitPrice']}} </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <div class="div-total">
+    <span class="total-order">Total {{orderInfo.total}}</span>
+  </div>
+</div>
