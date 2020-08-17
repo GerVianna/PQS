@@ -33,7 +33,7 @@ CREATE TABLE "OrderItems" (
 
 CREATE VIEW vorders_pending as
 SELECT t1."OrderId", t1."Status", t1."OrderDescription", t1."CreatedOn", t1."AuthDate",
-	SUM (t2."Quantity") as "TotalItems", SUM (t2."UnitPrice") as "TotalItemPrice"
+	SUM (t2."Quantity") as "TotalItems", SUM ((t2."UnitPrice") * (t2."Quantity")) as "TotalItemPrice"
 	FROM public."Orders" as t1
 	LEFT JOIN public."OrderItems" as t2 on t2."OrderId" = t1."OrderId"
 	WHERE t1."Status"='0'
