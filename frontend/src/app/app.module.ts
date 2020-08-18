@@ -5,8 +5,7 @@ import {HomeModule} from './modules/home/home.module';
 import {AppRoutingModule} from './app.routing-module';
 import {RouterModule} from '@angular/router';
 import {HttpClientModule} from '@angular/common/http';
-import {NgZorroAntdModule} from "ng-zorro-antd";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,6 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     AppRoutingModule,
     RouterModule,
     HttpClientModule,
-    NgZorroAntdModule,
     BrowserAnimationsModule
   ],
   providers: [],
