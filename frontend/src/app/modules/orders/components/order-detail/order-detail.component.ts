@@ -31,14 +31,14 @@ export class OrderDetailComponent implements OnInit {
   approve(orderId: number): void {
     this.orderService.approveOrder(orderId)
       .then((result) => {
-        this.orderInfo.status = 1;
+        this.orderInfo.status = 1; // actualizo estado de la orden
       });
   }
   // rechazar una orden
   reject(orderId: number): void {
     this.orderService.rejectOrder(orderId)
       .then((result) => {
-        this.orderInfo.status = -1;
+        this.orderInfo.status = -1; // actualizado estado de la orden
       });
   }
 }
