@@ -1,8 +1,5 @@
 /*
-
 Script inicial para crear las tablas, vistas, triggers, datos
-
-
 */
 
 CREATE OR REPLACE FUNCTION trigger_set_timestamp()

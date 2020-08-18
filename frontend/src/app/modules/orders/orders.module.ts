@@ -4,7 +4,7 @@ import { OrderDetailComponent } from './components/order-detail/order-detail.com
 import { OrdersComponent } from './components/orders/orders.component';
 import {OrdersRoutingModule} from './orders-routing.module';
 import {NzButtonModule, NzDividerModule, NzListModule, NzSelectModule, NzTableModule} from "ng-zorro-antd";
-import {FormsModule} from "@angular/forms";
+import {FormsModule} from '@angular/forms';
 
 
 
