@@ -8,6 +8,7 @@ Para iniciar, corra el script sql en un server con una base de datos creada en p
 para cargar tablas, vistas y datos requeridos.
 
 Una vez descargado el proyecto realize npm install sobre las carpetas backend y frontend.
+Modifique el archivo api.js e ingrese credenciales de su usuario de postgres y bdd
 Para iniciar el servidor, desde la carpeta backend, inicie una terminal e ingrese: node server
 Para iniciar el cliente, desde la carpeta frontend, inicie una terminal e ingrese: ng serve
 
