@@ -34,16 +34,19 @@
   background: #00A750!important;
   margin-right: 3px!important;
   color: #fff;
+  border-radius: 20px!important;
 }
 
 .reject-order {
   background: #fb2467!important;
   margin-right: 3px!important;
   color: #fff;
+  border-radius: 20px!important;
 }
 
 .total-order {
   color: #066aea;
+  background-color: #e6f0fc;
   font-size: 15px;
   margin-right: 5px;
   border-radius: 6px;

@@ -1,10 +1,14 @@
 // Import de las dos clases necesarias
 const OrderInfo = require('./orderInfo');
 const OrderItem = require('./orderItem');
+const STATUS_OK = 200;
+const STATUS_ERROR = 400;
+const STATUS_NOT_FOUND = 404;
 
-// Configuro cliente para postgresql
+// Configuro e importo cliente para postgresql
 const {Client} = require('pg');
 
+// Ingresar usuario postgres y credenciales de postgresql
 const client = new Client({
     user: 'postgres',
     host: '127.0.0.1',
@@ -16,7 +20,7 @@ const client = new Client({
 // Conecto cliente
 client
     .connect()
-    .then(() => console.log('cliente conectado'));
+    .then(() => console.log('Cliente conectado'));
 
 // Definicion de endpoints
 async function routes (fastify, options) {
@@ -25,6 +29,7 @@ async function routes (fastify, options) {
         client.query(
             `SELECT * FROM vorders_pending`, [], (error,results) => {
                 if (error) {
+                    res.send(STATUS_ERROR).send({'text': 'Error, bad request'});
                     throw error;
                 }
                 if (results.rows) {
@@ -40,7 +45,7 @@ async function routes (fastify, options) {
                         orders.push(newOrder);
                     })
                 }
-                res.status(200).send(orders);
+                res.status(STATUS_OK).send(orders);
             }
         )
     })
@@ -49,6 +54,7 @@ async function routes (fastify, options) {
         client.query(
             `SELECT * FROM vorders_approved`, [], (error,results) => {
                 if (error) {
+                    res.send(STATUS_ERROR).send({'text': 'Error, bad request'});
                     throw error;
                 }
                 if (results.rows) {
@@ -63,7 +69,7 @@ async function routes (fastify, options) {
                         orders.push(newOrder);
                     })
                 }
-                res.status(200).send(orders);
+                res.status(STATUS_OK).send(orders);
             }
         )
     })
@@ -72,6 +78,7 @@ async function routes (fastify, options) {
         client.query(
             `SELECT * FROM vorders_rejected`, [], (error,results) => {
                 if (error) {
+                    res.send(STATUS_ERROR).send({'text': 'Error, bad request'});
                     throw error;
                 }
                 if (results.rows) {
@@ -86,7 +93,7 @@ async function routes (fastify, options) {
                         orders.push(newOrder);
                     })
                 }
-                res.status(200).send(orders);
+                res.status(STATUS_OK).send(orders);
             }
         )
     })
@@ -96,9 +103,10 @@ async function routes (fastify, options) {
         client.query(
             `SELECT * FROM "OrderItems"  WHERE "OrderId" = ${id}`, [], (error,results) => {
                 if (error) {
+                    res.send(STATUS_ERROR).send({'text': 'Error, bad request'});
                     throw error;
                 }
-                if (results.rows) {
+                if (results.rows.length) {
                     results.rows.forEach(row => {
                         const newOrderItem = new OrderItem();
                         newOrderItem.orderItemId = row['OrderItemId'];
@@ -107,8 +115,10 @@ async function routes (fastify, options) {
                         newOrderItem.quantity = row['Quantity'];
                         items.push(newOrderItem);
                     })
+                } else {
+                    res.status(STATUS_NOT_FOUND).send({'text': 'Not found'});
                 }
-                res.status(200).send(items);
+                res.status(STATUS_OK).send(items);
             }
         )
     })
@@ -118,10 +128,15 @@ async function routes (fastify, options) {
                              SET "Status" = 1
                              WHERE "OrderId" = ${id}`,[], (error, results) => {
             if (error) {
+                res.send(STATUS_ERROR).send({'text': 'Error, bad request'});
                 throw error;
             }
-            res.status(200).send({'text': 'La orden ha sido aceptada'});
-        })
+            if (results.rowCount === 0) {
+                res.status(STATUS_NOT_FOUND).send({'text': 'Not found'});
+            } else {
+                res.status(STATUS_OK).send({'text': 'La orden ha sido aceptada'});
+            }
+        });
     })
     fastify.delete('/api/orders/:id', async (req,res) => {
         const id = req.params.id;
@@ -129,10 +144,15 @@ async function routes (fastify, options) {
                              SET "Status" = -1
                              WHERE "OrderId" = ${id}`,[], (error, results) => {
             if (error) {
+                res.send(STATUS_ERROR).send({'text': 'Error, bad request'});
                 throw error;
             }
-            res.status(200).send({'text': 'La orden ha sido rechazada'});
-        })
+            if (results.rowCount === 0) {
+                res.status(STATUS_NOT_FOUND).send({'text': 'Not found'});
+            } else {
+                res.status(STATUS_OK).send({'text': 'La orden ha sido rechazada'});
+            }
+        });
     })
 }
 

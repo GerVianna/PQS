@@ -24,13 +24,13 @@
       <tbody>
       <tr *ngFor="let data of basicTable.data">
         <td>
-          <span >
+          <span>
             <a (click)="sendOrderInfo(data)" [routerLink]="['/orders', data['orderId']]">N° {{ data['orderId'] }}</a>
           </span>
         </td>
         <td>{{ data['orderDescription']}}</td>
         <td>{{ data['qItems']}}</td>
-        <td>{{ data['total']}}</td>
+        <td>$ {{ data['total']}}</td>
       </tr>
       </tbody>
     </nz-table>
